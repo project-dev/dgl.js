@@ -17,7 +17,6 @@ DGLはDot Game Libraryです。
 
 [pngpalette](https://github.com/project-dev/pngpalette)が必要になります。
 利用する場合は、コチラもcloneするなりして利用してください。
-サンプルを追加する時に、サブモジュールとして本リポジトリ追加予定です。
 
 # 特徴
 - PNGライブラリを使用し、パレットアニメーションができる

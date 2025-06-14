@@ -559,6 +559,12 @@ function putSprite(puttblno, putno, x, y){
  */
 function putSpritePNG(puttblno, putno, x, y){
 
+    // 値の丸め(TypeSceiptならいらないよね)
+    puttblno = Math.floor(puttblno);
+    putno = Math.floor(putno);
+    x = Math.floor(x);
+    y = Math.floor(y);
+
     if(cds.length <= puttblno ){
         LOG.warn("invalid puttblno [" + puttblno +"]");
         return;

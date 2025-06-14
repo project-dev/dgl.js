@@ -1,0 +1,98 @@
+<!DOCTYPE>
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Style-Type" content="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Style-Type" content="text/css">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>DGL サンプル - キャラクタの描画 -</title>
+        <link rel="stylesheet" href="../css/dgl.css">
+        <style>
+            .menu{
+                background-color:#eef ;
+                padding:8px 16px;
+            }
+        </style>
+
+        <!-- PNG ライブラリ-->
+        <script src="https://cdn.jsdelivr.net/gh/project-dev/pngpalette@master/js/crc32.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/project-dev/pngpalette@master/js/pako.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/project-dev/pngpalette@master/js/png.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/project-dev/pngpalette@master/js/pngutil.js"></script>
+        
+        <!-- DGL-->
+        <script src="../js/dgl.devel.js"></script>
+        <script src="../js/dgl.device.js"></script>
+        <script src="../js/dgl.audio.js"></script>
+        <script src="../js/dgl.core.js"></script>
+
+        <!-- シーン -->
+        <script src="./js/scene_sample.js"></script>
+
+        <script>
+    		'use strict';
+            LOG.isDebug = false;
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                try{
+                    // DGLの初期化
+                    dglInitalize(null, 'gba');
+
+                    // イメージのロード。非同期で読み込む
+                    Promise.all([
+                        loadPng("./img/chara_01.png"),
+                      
+                    ]).then((results) =>{
+                        results.forEach(result => {
+                            if(result != undefined){
+                                dglMain.imageMap[result.name] = result;
+                                if(result.name == "chara_01"){
+                                    LOG.info("パレット登録");
+                                    dglMain.png.palette = dglMain.imageMap[result.name].plte;
+                                    dglMain.png.trans = dglMain.imageMap[result.name].trns;
+                                    dglMain.png.systemPalette = dglMain.png.palette;
+
+                                    pngBackBuffer.defPalette = dglMain.png.palette;
+                                    pngBackBuffer.defTrans = dglMain.png.trans;
+                                }
+                            }
+                        });
+
+                        //-------------------------------------------------------------------------------------
+                        //         PUTTBLNO, PUTNO, IMAGE NAME,    X,   Y, SIZE X, SUZE Y, OFFSET X, OFFSET Y
+                        //-------------------------------------------------------------------------------------
+                        setCDSData(       0,     0, "chara_01",    0,  48,     16,     16,        8,       16);
+                        setCDSData(       0,     1, "chara_01",    0,  64,     16,     16,        8,       16);
+                        setCDSData(       0,     2, "chara_01",    0,  80,     16,     16,        8,       16);
+                        setCDSData(       0,     3, "chara_01",    0,  64,     16,     16,        8,       16);
+                        setCDSData(       0,     4, "chara_01",    0,  48,     16,     16,        8,       16);
+                        setCDSData(       0,     5, "chara_01",    0,  32,     16,     16,        8,       16);
+                        setCDSData(       0,     6, "chara_01",    0,  16,     16,     16,        8,       16);
+                        setCDSData(       0,     7, "chara_01",    0,   0,     16,     16,        8,       16);
+
+                        // シーンの登録
+                        scene_sample_register();
+
+                        // DGLの開始
+                        dglStart();
+
+                        // シーンの変更
+                        sceneChange("sample");
+                    }).catch(reject =>{
+                        LOG.error(reject);
+                    });
+                }catch(e){
+                    LOG.error(e);
+                    alert(e);
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="menu">
+            <a href="../index.html">&lt;&lt; Return To Top</a><br>
+        </div>
+    </body>
+</html>
