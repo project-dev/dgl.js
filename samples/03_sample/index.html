@@ -28,7 +28,8 @@
         <script src="../../js/dgl.core.js"></script>
 
         <!-- シーン -->
-        <script src="./js/scene_sample.js"></script>
+        <script src="./js/scene_sample01.js"></script>
+        <script src="./js/scene_sample02.js"></script>
 
         <script>
     		'use strict';
@@ -73,13 +74,14 @@
                         setCDSData(       0,     7, "chara_01",    0,   0,     16,     16,        8,       16);
 
                         // シーンの登録
-                        scene_sample_register();
+                        scene_sample01_register();
+                        scene_sample02_register();
 
                         // DGLの開始
                         dglStart();
 
                         // シーンの変更
-                        sceneChange("sample");
+                        sceneChange("sample01");
                     }).catch(reject =>{
                         LOG.error(reject);
                     });

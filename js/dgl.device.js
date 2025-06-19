@@ -157,8 +157,38 @@ function dglDeviceInitalize(parentElement){
          * キー情報
          */
         key:{
-            event:null,
+            event:[],
+            down:[],
             setEvent:(stateName, e)=>{
+                dglDevice.key.down[e.code] = stateName == 'keydown';
+                dglDevice.key.event[e.code] = {
+                    'key'      : e.key,
+                    'code'     : e.code,
+                    'ctrlKey'  : e.ctrlKey,
+                    'metaKey'  : e.metaKey,
+                    'shiftKey' : e.shiftKey,
+                    'state'    : stateName,
+                };
+            },
+            isDown:(keyCode) => {
+                if(dglDevice.key.down[keyCode] == undefined){
+                    return false;
+                }
+                return dglDevice.key.down[keyCode];
+            },
+            getEvent:(keyCode) => {
+                if(dglDevice.key.event[keyCode] == undefined){
+                    dglDevice.key.event[keyCode] = {
+                        'key'      : '',
+                        'code'     : keyCode,
+                        'ctrlKey'  : false,
+                        'metaKey'  : false,
+                        'shiftKey' : false,
+                        'state'    : 'keyup',
+                    };
+                    dglDevice.key.down[e.code] = false;
+                }
+                return dglDevice.key.event[keyCode];
             }
         },
 
@@ -168,6 +198,7 @@ function dglDeviceInitalize(parentElement){
         pad:{},
         reset:()=>{
             dglDevice.mouse.event = null;
+            dglDevice.key.event = [];
             dglDevice.touch.event = {};
             dglDevice.pointer.event = {};
         }
@@ -207,7 +238,7 @@ function dglDeviceInitalize(parentElement){
     // -------------------------------------------------
 	// key event
     // -------------------------------------------------
-    
+
     // キーダウン
     parentElement.addEventListener("keydown", function(e){
 		dglDevice.key.setEvent("keydown", e);

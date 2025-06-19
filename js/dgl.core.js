@@ -235,6 +235,7 @@ function dglInitalize(parentElement, displayModeName){
                     backCtx.arc( dglDevice.mouse.x, dglDevice.mouse.y, 3, 0 * Math.PI / 180, 360 * Math.PI / 180, false ) ;
                     backCtx.fill() ;
                 }
+
             }finally{
                 // ここでデバイスの情報はリセット
                 if(dglDevice.reset){
@@ -305,7 +306,8 @@ function dglInitalize(parentElement, displayModeName){
     
                     // 画像サイズの半分だけずらして画像を描画する
                     frontCtx.drawImage( backBuffer, dglMain.displayInfo.outX, dglMain.displayInfo.outY, bgw * dglMain.displayInfo.scale, bgh * dglMain.displayInfo.scale );
-                }            
+                }
+
                 // デバッグ情報
                 if(debugMode){
                         
