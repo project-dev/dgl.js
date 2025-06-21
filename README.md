@@ -10,10 +10,11 @@ DGLはDot Game Libraryです。
 
 |ファイル|概要|
 |--|--|
-|dgl.core.js  |DGLのコア機能を提供|
-|dgl.device.js|デバイス関連の機能を提供|
-|dgl.audio.js |オーディオ関連の機能を提供|
-|dgl.devel.js |開発向けの機能を提供|
+|dgl.core.js   |DGLのコア機能を提供       |
+|dgl.keycode.js|キーコードの列挙型的なもの|
+|dgl.device.js |デバイス関連の機能を提供  |
+|dgl.audio.js  |オーディオ関連の機能を提供|
+|dgl.devel.js  |開発向けの機能を提供      |
 
 [pngpalette](https://github.com/project-dev/pngpalette)が必要になります。
 利用する場合は、コチラもcloneするなりして利用してください。
